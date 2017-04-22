@@ -3,10 +3,20 @@
 > :bell: Customisable in-app notification component for React Native
 
 ## Contents
-1. [Install](#install)
-2. [Props](#props)
-3. [Usage](#usage)
-4. [Example](#example)
+1. [UI](#ui)
+2. [Install](#install)
+3. [Props](#props)
+4. [Usage](#usage)
+5. [Example](#example)
+
+## UI
+The basic look of `react-native-in-app-notification`:
+
+![A GIF showing what react-native-in-app-notification can do](http://i.imgur.com/3PILcKg.gif)
+
+What you can make `react-native-in-app-notification` do with a customised component:
+
+![A GIF showing what react-native-in-app-notification can do](http://i.imgur.com/k0SBlrW.gif)
 
 ## Install
 ```bash
