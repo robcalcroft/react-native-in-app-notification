@@ -1,0 +1,23 @@
+{
+  "name": "react-native-in-app-notification",
+  "version": "1.0.0",
+  "description": "Customisable in-app notification component for React Native",
+  "main": "index.js",
+  "repository": "https://github.com/robcalcroft/react-native-in-app-notification.git",
+  "author": "Rob Calcroft <rob@calcroft.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint Notification.js DefaultNotificationBody.js"
+  },
+  "peerDependencies": {
+    "react": "^15.5.4",
+    "react-native": "^0.43.4"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3"
+  }
+}
