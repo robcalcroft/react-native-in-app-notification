@@ -2,7 +2,7 @@
   "name": "react-native-in-app-notification",
   "version": "1.0.0",
   "description": "Customisable in-app notification component for React Native",
-  "main": "index.js",
+  "main": "Notification.js",
   "repository": "https://github.com/robcalcroft/react-native-in-app-notification.git",
   "author": "Rob Calcroft <rob@calcroft.com>",
   "license": "MIT",
