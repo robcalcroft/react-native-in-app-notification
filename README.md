@@ -1,4 +1,4 @@
-# react-native-in-app-notification
+# react-native-in-app-notification [![npm version](https://badge.fury.io/js/react-native-in-app-notification.svg)](https://badge.fury.io/js/react-native-in-app-notification)
 
 > :bell: Customisable in-app notification component for React Native
 
