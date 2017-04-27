@@ -30,20 +30,26 @@ class Notification extends Component {
     const { closeInterval } = this.props;
     const { isOpen } = this.state;
 
+    // Clear any currently showing notification timeouts so the new one doesn't get prematurely
+    // closed
+    clearTimeout(this.currentNotificationInterval);
+
     const showNotificationWithStateChanges = () => {
       this.setState({
         isOpen: true,
         title,
         message,
         onPress,
-      }, () => this.showNotification(() => setTimeout(() => {
-        this.setState({
-          isOpen: false,
-          title: '',
-          message: '',
-          onPress: null,
-        }, this.closeNotification);
-      }, closeInterval)));
+      }, () => this.showNotification(() => {
+        this.currentNotificationInterval = setTimeout(() => {
+          this.setState({
+            isOpen: false,
+            title: '',
+            message: '',
+            onPress: null,
+          }, this.closeNotification);
+        }, closeInterval);
+      }));
     };
 
     if (isOpen) {
