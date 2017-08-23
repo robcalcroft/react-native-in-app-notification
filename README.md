@@ -34,6 +34,7 @@ npm install react-native-in-app-notification --save
 | openCloseDuration         | The length of the open / close animation            | Number                 | No          | `200`                       |
 | height                    | The height of the Notification component            | Number                 | No          | `80`                        |
 | backgroundColour          | The background colour of the Notification component | String                 | No          | `white`                     |
+| iconApp                   | App Icon                                            | ImageSourcePropType    | No          | `null`                      |
 | notificationBodyComponent | **See below about NotificationBody**                | React Node or Function | Recommended | `./DefaultNotificationBody` |
 
 ### NotificationBody
@@ -41,12 +42,13 @@ The notification body is what is rendered inside the main Notification component
 
 Your `notificationBodyComponent` component is given four props:
 
-| Prop Name | Prop Description                                 | Data Type |
-|-----------|--------------------------------------------------|-----------|
-| title     | The title passed to `NotificationRef.show`       | String    |
-| message   | The message passed to `NotificationRef.show`     | String    |
-| onPress   | The callback passed to `NotificationRef.show`    | Function  |
-| onClose   | A function to close the Notification prematurely | Function  |  
+| Prop Name | Prop Description                                       | Data Type           |
+|-----------|--------------------------------------------------------|---------------------|
+| title     | The title passed to `NotificationRef.show`             | String              |
+| message   | The message passed to `NotificationRef.show`           | String              |
+| onPress   | The callback passed to `NotificationRef.show`          | Function            |
+| icon      | Icon for notification passed to `NotificationRef.show` | ImageSourcePropType |
+| onClose   | A function to close the Notification prematurely       | Function            |
 
 ## Usage
 Adding `react-native-in-app-notification` is simple; just import the component and add it to the bottom of your component tree. Then create a ref to the component using `ref={(ref) => { this.notification = ref; }}` as a prop.
