@@ -1,13 +1,11 @@
-import React, { PropTypes, Component } from 'react';
-import { Animated, StyleSheet, Platform } from 'react-native';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Animated, StyleSheet, Image } from 'react-native';
 import DefaultNotificationBody from './DefaultNotificationBody';
-
-const isAndroid = Platform.OS === 'android';
 
 const styles = StyleSheet.create({
   notification: {
     position: 'absolute',
-    paddingTop: isAndroid ? 0 : 20,
     width: '100%',
   },
 });
@@ -26,7 +24,7 @@ class Notification extends Component {
     };
   }
 
-  show(title = '', message = '', onPress = null) {
+  show(title = '', message = '', onPress = null, icon = null) {
     const { closeInterval } = this.props;
     const { isOpen } = this.state;
 
@@ -40,6 +38,7 @@ class Notification extends Component {
         title,
         message,
         onPress,
+        icon,
       }, () => this.showNotification(() => {
         this.currentNotificationInterval = setTimeout(() => {
           this.setState({
@@ -47,6 +46,7 @@ class Notification extends Component {
             title: '',
             message: '',
             onPress: null,
+            icon: null,
           }, this.closeNotification);
         }, closeInterval);
       }));
@@ -77,8 +77,21 @@ class Notification extends Component {
   }
 
   render() {
-    const { height, backgroundColour, notificationBodyComponent: NotificationBody } = this.props;
-    const { animatedValue, title, message, onPress } = this.state;
+    const {
+      height,
+      backgroundColour,
+      iconApp,
+      notificationBodyComponent: NotificationBody,
+    } = this.props;
+
+    const {
+      animatedValue,
+      title,
+      message,
+      onPress,
+      isOpen,
+      icon,
+    } = this.state;
 
     return (
       <Animated.View
@@ -99,6 +112,9 @@ class Notification extends Component {
           title={title}
           message={message}
           onPress={onPress}
+          isOpen={isOpen}
+          iconApp={iconApp}
+          icon={icon}
           onClose={() => this.setState({ isOpen: false }, this.closeNotification)}
         />
       </Animated.View>
@@ -115,6 +131,7 @@ Notification.propTypes = {
     PropTypes.node,
     PropTypes.func,
   ]),
+  iconApp: Image.propTypes.source,
 };
 
 Notification.defaultProps = {
@@ -123,6 +140,7 @@ Notification.defaultProps = {
   height: 80,
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
+  iconApp: null,
 };
 
 export default Notification;
