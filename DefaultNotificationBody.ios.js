@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity, StatusBar, View, Text, Image} from 'react-native';
+import {TouchableOpacity, StatusBar, View, Text, Image, Vibration} from 'react-native';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class DefaultNotificationBody extends React.Component {
@@ -8,6 +8,7 @@ export default class DefaultNotificationBody extends React.Component {
   static propTypes = {
     title:   PropTypes.string,
     message: PropTypes.string,
+    vibrate: PropTypes.bool,
     isOpen:  PropTypes.bool,
     onPress: PropTypes.func,
     onClose: PropTypes.func,
@@ -18,6 +19,7 @@ export default class DefaultNotificationBody extends React.Component {
   static defaultProps = {
     title:   'Notification',
     message: 'This is a test notification',
+    vibrate: true,
     isOpen:  false,
     iconApp: null,
     icon:    null,
@@ -28,6 +30,9 @@ export default class DefaultNotificationBody extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.isOpen !== this.props.isOpen)
       StatusBar.setHidden(nextProps.isOpen);
+
+    if (nextProps.vibrate && nextProps.isOpen)
+      Vibration.vibrate();
   }
 
   render() {

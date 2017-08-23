@@ -1,29 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity, View, Text, Image} from 'react-native';
+import {TouchableOpacity, View, Text, Image, Vibration} from 'react-native';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class DefaultNotificationBody extends React.Component {
 
   static propTypes = {
-    title: PropTypes.string,
+    title:   PropTypes.string,
     message: PropTypes.string,
-    isOpen: PropTypes.bool,
+    vibrate: PropTypes.bool,
+    isOpen:  PropTypes.bool,
     onPress: PropTypes.func,
     onClose: PropTypes.func,
     iconApp: Image.propTypes.source,
-    icon: Image.propTypes.source,
+    icon:    Image.propTypes.source,
   };
 
   static defaultProps = {
-    title: 'Notification',
+    title:   'Notification',
     message: 'This is a test notification',
-    isOpen: false,
+    vibrate: true,
+    isOpen:  false,
     iconApp: null,
-    icon: null,
+    icon:    null,
     onPress: () => null,
     onClose: () => null,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.vibrate && nextProps.isOpen)
+      Vibration.vibrate();
+  }
 
   render() {
     const {
