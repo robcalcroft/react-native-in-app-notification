@@ -1,97 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity, StatusBar, View, Text, Image, Vibration} from 'react-native';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-
-export default class DefaultNotificationBody extends React.Component {
-
-  static propTypes = {
-    title:   PropTypes.string,
-    message: PropTypes.string,
-    vibrate: PropTypes.bool,
-    isOpen:  PropTypes.bool,
-    onPress: PropTypes.func,
-    onClose: PropTypes.func,
-    iconApp: Image.propTypes.source,
-    icon:    Image.propTypes.source,
-  };
-
-  static defaultProps = {
-    title:   'Notification',
-    message: 'This is a test notification',
-    vibrate: true,
-    isOpen:  false,
-    iconApp: null,
-    icon:    null,
-    onPress: () => null,
-    onClose: () => null,
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isOpen !== this.props.isOpen)
-      StatusBar.setHidden(nextProps.isOpen);
-
-    if (nextProps.vibrate && nextProps.isOpen)
-      Vibration.vibrate();
-  }
-
-  render() {
-    const {
-      title,
-      message,
-      onPress,
-      onClose,
-    } = this.props;
-
-    return(
-      <View style={styles.root}>
-        <GestureRecognizer onSwipe={this._onSwipe.bind(this)} style={styles.container}>
-          <TouchableOpacity
-            style={styles.content}
-            activeOpacity={0.3}
-            underlayColor="transparent"
-            onPress={() => {
-              onClose();
-              onPress();
-            }}
-          >
-            {this._renderIcon()}
-            <View style={styles.textContainer}>
-              <Text numberOfLines={1} style={styles.title}>{title}</Text>
-              <Text numberOfLines={1} style={styles.message}>{message}</Text>
-            </View>
-          </TouchableOpacity>
-
-          <View style={styles.footer}/>
-        </GestureRecognizer>
-      </View>
-    );
-  }
-
-  private
-  _onSwipe(direction) {
-    const {SWIPE_UP} = swipeDirections;
-
-    if (direction === SWIPE_UP) {
-      this.props.onClose();
-    }
-  }
-
-  _renderIcon() {
-    const {
-      iconApp,
-      icon,
-    } = this.props;
-
-    if (icon) {
-      return <Image source={icon} style={styles.icon} />;
-    } else if (iconApp) {
-      return <Image source={iconApp} style={styles.iconApp} />;
-    }
-
-    return null;
-  }
-}
+import { TouchableOpacity, StatusBar, View, Text, Image, Vibration } from 'react-native';
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 const styles = {
   root: {
@@ -145,3 +55,95 @@ const styles = {
     margin: 5,
   },
 };
+
+class DefaultNotificationBody extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isOpen !== this.props.isOpen) {
+      StatusBar.setHidden(nextProps.isOpen);
+    }
+
+    if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
+      Vibration.vibrate();
+    }
+  }
+
+  onSwipe(direction) {
+    const { SWIPE_UP } = swipeDirections;
+
+    if (direction === SWIPE_UP) {
+      this.props.onClose();
+    }
+  }
+
+  renderIcon() {
+    const {
+      iconApp,
+      icon,
+    } = this.props;
+
+    if (icon) {
+      return <Image source={icon} style={styles.icon} />;
+    } else if (iconApp) {
+      return <Image source={iconApp} style={styles.iconApp} />;
+    }
+
+    return null;
+  }
+
+  render() {
+    const {
+      title,
+      message,
+      onPress,
+      onClose,
+    } = this.props;
+
+    return (
+      <View style={styles.root}>
+        <GestureRecognizer onSwipe={direction => this.onSwipe(direction)} style={styles.container}>
+          <TouchableOpacity
+            style={styles.content}
+            activeOpacity={0.3}
+            underlayColor="transparent"
+            onPress={() => {
+              onClose();
+              onPress();
+            }}
+          >
+            {this.renderIcon()}
+            <View style={styles.textContainer}>
+              <Text numberOfLines={1} style={styles.title}>{title}</Text>
+              <Text numberOfLines={1} style={styles.message}>{message}</Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.footer} />
+        </GestureRecognizer>
+      </View>
+    );
+  }
+}
+
+DefaultNotificationBody.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string,
+  vibrate: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onPress: PropTypes.func,
+  onClose: PropTypes.func,
+  iconApp: Image.propTypes.source,
+  icon: Image.propTypes.source,
+};
+
+DefaultNotificationBody.defaultProps = {
+  title: 'Notification',
+  message: 'This is a test notification',
+  vibrate: true,
+  isOpen: false,
+  iconApp: null,
+  icon: null,
+  onPress: () => null,
+  onClose: () => null,
+};
+
+export default DefaultNotificationBody;
