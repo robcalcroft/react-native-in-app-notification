@@ -2,6 +2,8 @@
 
 > :bell: Customisable in-app notification component for React Native
 
+> **BREAKING CHANGE IN v2**: Parameters for the `show` function should now be passed in the form of options. See more in [Example](#example)
+
 ## Contents
 1. [UI](#ui)
 2. [Install](#install)
