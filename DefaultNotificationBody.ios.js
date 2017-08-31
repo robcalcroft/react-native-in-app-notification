@@ -57,6 +57,12 @@ const styles = {
 };
 
 class DefaultNotificationBody extends React.Component {
+  constructor() {
+    super();
+
+    this.onSwipe = this.onSwipe.bind(this);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.isOpen !== this.props.isOpen) {
       StatusBar.setHidden(nextProps.isOpen);
@@ -100,7 +106,7 @@ class DefaultNotificationBody extends React.Component {
 
     return (
       <View style={styles.root}>
-        <GestureRecognizer onSwipe={direction => this.onSwipe(direction)} style={styles.container}>
+        <GestureRecognizer onSwipe={this.onSwipe} style={styles.container}>
           <TouchableOpacity
             style={styles.content}
             activeOpacity={0.3}

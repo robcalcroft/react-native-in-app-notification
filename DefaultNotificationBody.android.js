@@ -37,6 +37,12 @@ const styles = {
 };
 
 class DefaultNotificationBody extends React.Component {
+  constructor() {
+    super();
+
+    this.onSwipe = this.onSwipe.bind(this);
+  }
+
   componentWillReceiveProps(nextProps) {
     if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
       Vibration.vibrate();
@@ -63,7 +69,7 @@ class DefaultNotificationBody extends React.Component {
     } = this.props;
 
     return (
-      <GestureRecognizer onSwipe={direction => this.onSwipe(direction)} style={styles.container}>
+      <GestureRecognizer onSwipe={this.onSwipe} style={styles.container}>
         <TouchableOpacity
           style={styles.content}
           activeOpacity={0.3}
