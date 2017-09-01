@@ -26,7 +26,7 @@ class Notification extends Component {
     };
   }
 
-  show(title = '', message = '', onPress = null) {
+  show(title = '', message = '', onPress = null, props = {}) {
     const { closeInterval } = this.props;
     const { isOpen } = this.state;
 
@@ -100,6 +100,7 @@ class Notification extends Component {
           message={message}
           onPress={onPress}
           onClose={() => this.setState({ isOpen: false }, this.closeNotification)}
+          {...props}
         />
       </Animated.View>
     );
