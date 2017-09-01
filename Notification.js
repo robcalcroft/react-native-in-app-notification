@@ -40,7 +40,7 @@ class Notification extends Component {
         title,
         message,
         onPress,
-        props
+        props,
       }, () => this.showNotification(() => {
         this.currentNotificationInterval = setTimeout(() => {
           this.setState({
@@ -48,7 +48,7 @@ class Notification extends Component {
             title: '',
             message: '',
             onPress: null,
-            props: {}
+            props: {},
           }, this.closeNotification);
         }, closeInterval);
       }));
