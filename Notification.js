@@ -40,6 +40,7 @@ class Notification extends Component {
         title,
         message,
         onPress,
+        props
       }, () => this.showNotification(() => {
         this.currentNotificationInterval = setTimeout(() => {
           this.setState({
@@ -47,6 +48,7 @@ class Notification extends Component {
             title: '',
             message: '',
             onPress: null,
+            props: {}
           }, this.closeNotification);
         }, closeInterval);
       }));
@@ -78,7 +80,7 @@ class Notification extends Component {
 
   render() {
     const { height, backgroundColour, notificationBodyComponent: NotificationBody } = this.props;
-    const { animatedValue, title, message, onPress } = this.state;
+    const { animatedValue, title, message, onPress, props } = this.state;
 
     return (
       <Animated.View
