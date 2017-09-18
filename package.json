@@ -7,7 +7,7 @@
   "author": "Rob Calcroft <rob@calcroft.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint Notification.js DefaultNotificationBody.js"
+    "lint": "eslint Notification.js DefaultNotificationBody.ios.js DefaultNotificationBody.android.js"
   },
   "peerDependencies": {
     "prop-types": "^15.5.10",
