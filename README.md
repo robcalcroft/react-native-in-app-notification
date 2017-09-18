@@ -2,6 +2,8 @@
 
 > :bell: Customisable in-app notification component for React Native
 
+> **BREAKING CHANGE IN v2**: Parameters for the `show` function should now be passed in the form of options. See more in [Example](#example)
+
 ## Contents
 1. [UI](#ui)
 2. [Install](#install)
@@ -34,6 +36,7 @@ npm install react-native-in-app-notification --save
 | openCloseDuration         | The length of the open / close animation            | Number                 | No          | `200`                       |
 | height                    | The height of the Notification component            | Number                 | No          | `80`                        |
 | backgroundColour          | The background colour of the Notification component | String                 | No          | `white`                     |
+| iconApp                   | App Icon                                            | ImageSourcePropType    | No          | `null`                      |
 | notificationBodyComponent | **See below about NotificationBody**                | React Node or Function | Recommended | `./DefaultNotificationBody` |
 
 ### NotificationBody
@@ -41,12 +44,13 @@ The notification body is what is rendered inside the main Notification component
 
 Your `notificationBodyComponent` component is given four props:
 
-| Prop Name | Prop Description                                 | Data Type |
-|-----------|--------------------------------------------------|-----------|
-| title     | The title passed to `NotificationRef.show`       | String    |
-| message   | The message passed to `NotificationRef.show`     | String    |
-| onPress   | The callback passed to `NotificationRef.show`    | Function  |
-| onClose   | A function to close the Notification prematurely | Function  |  
+| Prop Name | Prop Description                                              | Data Type           | Default |
+|-----------|---------------------------------------------------------------|---------------------|---------|
+| title     | The title passed to `NotificationRef.show`                    | String              | `''`    |
+| message   | The message passed to `NotificationRef.show`                  | String              | `''`    |
+| onPress   | The callback passed to `NotificationRef.show`                 | Function            | `null`  |
+| icon      | Icon for notification passed to `NotificationRef.show`        | ImageSourcePropType | `null`  |
+| vibrate   | Vibrate on show notification passed to `NotificationRef.show` | Boolean             | `true`  |
 
 ## Usage
 Adding `react-native-in-app-notification` is simple; just import the component and add it to the bottom of your component tree. Then create a ref to the component using `ref={(ref) => { this.notification = ref; }}` as a prop.
@@ -64,11 +68,11 @@ class MyApp extends Component {
     <View>
       <Text>This is my app</Text>
       <TouchableHighlight
-        onPress={this.notification && this.notification.show(
-          'You pressed it!',
-          'The notification has been triggered',
-          () => Alert.alert('Alert', 'You clicked the notification!'),
-        )}
+        onPress={this.notification && this.notification.show({
+          title: 'You pressed it!',
+          message: 'The notification has been triggered',
+          onPress: () => Alert.alert('Alert', 'You clicked the notification!'),
+        })}
       >
         <Text>Click me to trigger a notification</Text>
       </TouchableHighlight>
