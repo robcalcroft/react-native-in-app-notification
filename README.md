@@ -59,25 +59,27 @@ When you want to show the notification, just call `.show` on the ref you made ea
 
 ## Example
 ```javascript
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import Notification from 'react-native-in-app-notification';
 
 class MyApp extends Component {
   render() {
-    <View>
-      <Text>This is my app</Text>
-      <TouchableHighlight
-        onPress={this.notification && this.notification.show({
-          title: 'You pressed it!',
-          message: 'The notification has been triggered',
-          onPress: () => Alert.alert('Alert', 'You clicked the notification!'),
-        })}
-      >
-        <Text>Click me to trigger a notification</Text>
-      </TouchableHighlight>
-      <Notification ref={(ref) => { this.notification = ref; }} />
-    </View>
+    return (
+      <View>
+        <Text>This is my app</Text>
+        <TouchableHighlight
+          onPress={this.notification && this.notification.show({
+            title: 'You pressed it!',
+            message: 'The notification has been triggered',
+            onPress: () => Alert.alert('Alert', 'You clicked the notification!'),
+          })}
+        >
+          <Text>Click me to trigger a notification</Text>
+        </TouchableHighlight>
+        <Notification ref={(ref) => { this.notification = ref; }} />
+      </View>
+    )
   }
 }
 ```
