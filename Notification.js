@@ -81,6 +81,7 @@ class Notification extends Component {
   render() {
     const {
       height,
+      topOffset = 0,
       backgroundColour,
       iconApp,
       notificationBodyComponent: NotificationBody,
@@ -105,7 +106,7 @@ class Notification extends Component {
             transform: [{
               translateY: animatedValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: [-height, 0],
+                outputRange: [-height + topOffset, 0],
               }),
             }],
           },
