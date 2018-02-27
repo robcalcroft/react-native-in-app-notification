@@ -102,6 +102,7 @@ class DefaultNotificationBody extends React.Component {
       message,
       onPress,
       onClose,
+      customComponent
     } = this.props;
 
     return (
@@ -116,13 +117,19 @@ class DefaultNotificationBody extends React.Component {
               onPress();
             }}
           >
-            {this.renderIcon()}
-            <View style={styles.textContainer}>
-              <Text numberOfLines={1} style={styles.title}>{title}</Text>
-              <Text numberOfLines={1} style={styles.message}>{message}</Text>
-            </View>
+            {
+              customComponent ? 
+                customComponent
+              :
+                <View>
+                  {this.renderIcon()}
+                  <View style={styles.textContainer}>
+                    <Text numberOfLines={1} style={styles.title}>{title}</Text>
+                    <Text numberOfLines={1} style={styles.message}>{message}</Text>
+                  </View>
+                </View>
+            }
           </TouchableOpacity>
-
           <View style={styles.footer} />
         </GestureRecognizer>
       </View>
@@ -137,6 +144,7 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
+  customComponent: PropTypes.func,
   iconApp: Image.propTypes.source,
   icon: Image.propTypes.source,
 };
