@@ -109,7 +109,7 @@ class DefaultNotificationBody extends React.Component {
       <View style={styles.root}>
         <GestureRecognizer onSwipe={this.onSwipe} style={styles.container}>
           <TouchableOpacity
-            style={styles.content}
+            style={customComponent ? {flex:1} : styles.content}
             activeOpacity={0.3}
             underlayColor="transparent"
             onPress={() => {
@@ -127,10 +127,10 @@ class DefaultNotificationBody extends React.Component {
                     <Text numberOfLines={1} style={styles.title}>{title}</Text>
                     <Text numberOfLines={1} style={styles.message}>{message}</Text>
                   </View>
+                  <View style={styles.footer} />
                 </View>
             }
           </TouchableOpacity>
-          <View style={styles.footer} />
         </GestureRecognizer>
       </View>
     );
@@ -144,7 +144,7 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
-  customComponent: PropTypes.func,
+  customComponent: PropTypes.object,
   iconApp: Image.propTypes.source,
   icon: Image.propTypes.source,
 };
