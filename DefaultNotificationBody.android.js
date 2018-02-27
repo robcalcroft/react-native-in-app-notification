@@ -107,7 +107,7 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
-  customComponent: PropTypes.func,
+  customComponent: PropTypes.object,
   iconApp: Image.propTypes.source,
   icon: Image.propTypes.source,
 };
