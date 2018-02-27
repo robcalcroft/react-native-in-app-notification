@@ -66,6 +66,7 @@ class DefaultNotificationBody extends React.Component {
       icon,
       onPress,
       onClose,
+      customComponent
     } = this.props;
 
     return (
