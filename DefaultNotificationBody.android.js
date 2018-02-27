@@ -79,13 +79,20 @@ class DefaultNotificationBody extends React.Component {
             onPress();
           }}
         >
-          <View style={styles.iconContainer}>
-            {(icon || iconApp) && <Image source={icon || iconApp} style={styles.icon} />}
-          </View>
-          <View style={styles.textContainer}>
-            <Text numberOfLines={1} style={styles.title}>{title}</Text>
-            <Text numberOfLines={1} style={styles.message}>{message}</Text>
-          </View>
+          {
+            customComponent ?
+              customComponent
+            :
+              <View>
+                <View style={styles.iconContainer}>
+                  {(icon || iconApp) && <Image source={icon || iconApp} style={styles.icon} />}
+                </View>
+                <View style={styles.textContainer}>
+                  <Text numberOfLines={1} style={styles.title}>{title}</Text>
+                  <Text numberOfLines={1} style={styles.message}>{message}</Text>
+                </View>
+              </View>
+          }
         </TouchableOpacity>
       </GestureRecognizer>
     );
@@ -99,6 +106,7 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
+  customComponent: PropTypes.func,
   iconApp: Image.propTypes.source,
   icon: Image.propTypes.source,
 };
