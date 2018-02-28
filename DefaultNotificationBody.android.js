@@ -44,9 +44,9 @@ class DefaultNotificationBody extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
-      Vibration.vibrate();
-    }
+    //     if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
+    //       Vibration.vibrate();
+    //     }
   }
 
   onSwipe(direction) {
