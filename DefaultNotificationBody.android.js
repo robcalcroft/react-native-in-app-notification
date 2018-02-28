@@ -4,6 +4,9 @@ import { TouchableOpacity, View, Text, Image, Vibration } from 'react-native';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 const styles = {
+  root: {
+    flex:1
+  },  
   container: {
     flex: 1,
   },
@@ -44,9 +47,9 @@ class DefaultNotificationBody extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
-      Vibration.vibrate();
-    }
+    //     if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
+    //       Vibration.vibrate();
+    //     }
   }
 
   onSwipe(direction) {
@@ -66,28 +69,38 @@ class DefaultNotificationBody extends React.Component {
       icon,
       onPress,
       onClose,
+      customComponent
     } = this.props;
 
     return (
-      <GestureRecognizer onSwipe={this.onSwipe} style={styles.container}>
-        <TouchableOpacity
-          style={styles.content}
-          activeOpacity={0.3}
-          underlayColor="transparent"
-          onPress={() => {
-            onClose();
-            onPress();
-          }}
-        >
-          <View style={styles.iconContainer}>
-            {(icon || iconApp) && <Image source={icon || iconApp} style={styles.icon} />}
-          </View>
-          <View style={styles.textContainer}>
-            <Text numberOfLines={1} style={styles.title}>{title}</Text>
-            <Text numberOfLines={1} style={styles.message}>{message}</Text>
-          </View>
-        </TouchableOpacity>
-      </GestureRecognizer>
+      <View style={styles.root}>
+        <GestureRecognizer onSwipe={this.onSwipe} style={styles.container}>
+          <TouchableOpacity
+            style={customComponent ? {flex:1} : styles.content}
+            activeOpacity={0.3}
+            underlayColor="transparent"
+            onPress={() => {
+              onClose();
+              onPress();
+            }}
+          >
+            {
+              customComponent ?
+                customComponent
+              :
+                <View>
+                  <View style={styles.iconContainer}>
+                    {(icon || iconApp) && <Image source={icon || iconApp} style={styles.icon} />}
+                  </View>
+                  <View style={styles.textContainer}>
+                    <Text numberOfLines={1} style={styles.title}>{title}</Text>
+                    <Text numberOfLines={1} style={styles.message}>{message}</Text>
+                  </View>
+                </View>
+            }
+          </TouchableOpacity>
+        </GestureRecognizer>
+      </View>
     );
   }
 }
@@ -99,6 +112,7 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
+  customComponent: PropTypes.object,
   iconApp: Image.propTypes.source,
   icon: Image.propTypes.source,
 };

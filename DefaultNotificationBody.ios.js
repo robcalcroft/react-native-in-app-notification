@@ -69,7 +69,7 @@ class DefaultNotificationBody extends React.Component {
     }
 
     if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
-      Vibration.vibrate();
+      //       Vibration.vibrate();
     }
   }
 
@@ -102,13 +102,14 @@ class DefaultNotificationBody extends React.Component {
       message,
       onPress,
       onClose,
+      customComponent
     } = this.props;
 
     return (
       <View style={styles.root}>
         <GestureRecognizer onSwipe={this.onSwipe} style={styles.container}>
           <TouchableOpacity
-            style={styles.content}
+            style={customComponent ? {flex:1} : styles.content}
             activeOpacity={0.3}
             underlayColor="transparent"
             onPress={() => {
@@ -116,14 +117,20 @@ class DefaultNotificationBody extends React.Component {
               onPress();
             }}
           >
-            {this.renderIcon()}
-            <View style={styles.textContainer}>
-              <Text numberOfLines={1} style={styles.title}>{title}</Text>
-              <Text numberOfLines={1} style={styles.message}>{message}</Text>
-            </View>
+            {
+              customComponent ? 
+                customComponent
+              :
+                <View>
+                  {this.renderIcon()}
+                  <View style={styles.textContainer}>
+                    <Text numberOfLines={1} style={styles.title}>{title}</Text>
+                    <Text numberOfLines={1} style={styles.message}>{message}</Text>
+                  </View>
+                  <View style={styles.footer} />
+                </View>
+            }
           </TouchableOpacity>
-
-          <View style={styles.footer} />
         </GestureRecognizer>
       </View>
     );
@@ -137,6 +144,7 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
+  customComponent: PropTypes.object,
   iconApp: Image.propTypes.source,
   icon: Image.propTypes.source,
 };
