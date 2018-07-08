@@ -97,7 +97,8 @@ class Notification extends Component {
       vibrate,
     } = this.state;
 
-    return (
+
+    return isOpen && (
       <Animated.View
         style={[
           styles.notification,
