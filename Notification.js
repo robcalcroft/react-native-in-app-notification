@@ -65,17 +65,25 @@ class Notification extends Component {
   }
 
   showNotification(done = () => {}) {
+    this.props.onShowing && this.props.onShowing();
     Animated.timing(this.state.animatedValue, {
       toValue: 1,
       duration: this.props.openCloseDuration,
-    }).start(done);
+    }).start(() => {
+      done();
+      this.props.onShown && this.props.onShown();
+    });
   }
 
   closeNotification(done = () => {}) {
+    this.props.onClosing && this.props.onClosing();
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
-    }).start(done);
+    }).start(() => {
+      done();
+      this.props.onClosed && this.props.onClosed();
+    });
   }
 
   render() {
@@ -137,6 +145,10 @@ Notification.propTypes = {
     PropTypes.func,
   ]),
   iconApp: Image.propTypes.source,
+  onShowing: PropTypes.func,
+  onShown: PropTypes.func,
+  onClosing: PropTypes.func,
+  onClosed: PropTypes.func
 };
 
 Notification.defaultProps = {
