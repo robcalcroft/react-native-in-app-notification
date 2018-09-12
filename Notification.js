@@ -75,14 +75,14 @@ class Notification extends Component {
     });
   }
 
-  closeNotification(done = () => {}) {
+  closeNotification(done) {
     this.props.onClosing && this.props.onClosing();
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
     }).start(() => {
-      done();
-      this.props.onClosed && this.props.onClosed();
+      done && done();
+      this.props.onClosed && this.props.onClosed(done != null);
     });
   }
 
