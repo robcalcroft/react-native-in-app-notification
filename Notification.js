@@ -128,7 +128,11 @@ class Notification extends Component {
           iconApp={iconApp}
           icon={icon}
           vibrate={vibrate}
-          onClose={() => this.setState({ isOpen: false }, this.closeNotification)}
+          onClose={() => {
+            //clear timeout
+            clearTimeout(this.currentNotificationInterval);
+            this.setState({ isOpen: false }, this.closeNotification);
+          }}
         />
       </Animated.View>
     );
