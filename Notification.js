@@ -65,17 +65,33 @@ class Notification extends Component {
   }
 
   showNotification(done = () => {}) {
+    const {
+      onShowing,
+      onShown
+    } = this.props;
+    onShowing();
     Animated.timing(this.state.animatedValue, {
       toValue: 1,
       duration: this.props.openCloseDuration,
-    }).start(done);
+    }).start(() => {
+      done();
+      onShown();
+    });
   }
 
-  closeNotification(done = () => {}) {
+  closeNotification(done) {
+    const {
+      onClosing,
+      onClosed
+    } = this.props;
+    onClosing();
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
-    }).start(done);
+    }).start(() => {
+      done && done();
+      onClosed(done != null);
+    });
   }
 
   render() {
@@ -120,7 +136,11 @@ class Notification extends Component {
           iconApp={iconApp}
           icon={icon}
           vibrate={vibrate}
-          onClose={() => this.setState({ isOpen: false }, this.closeNotification)}
+          onClose={() => {
+            //clear timeout
+            clearTimeout(this.currentNotificationInterval);
+            this.setState({ isOpen: false }, this.closeNotification);
+          }}
         />
       </Animated.View>
     );
@@ -137,6 +157,10 @@ Notification.propTypes = {
     PropTypes.func,
   ]),
   iconApp: Image.propTypes.source,
+  onShowing: PropTypes.func,
+  onShown: PropTypes.func,
+  onClosing: PropTypes.func,
+  onClosed: PropTypes.func
 };
 
 Notification.defaultProps = {
@@ -146,6 +170,10 @@ Notification.defaultProps = {
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
   iconApp: null,
+  onShowing: () => {},
+  onShown: () => {},
+  onClosing: () => {},
+  onClosed: () => {}
 };
 
 export default Notification;
