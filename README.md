@@ -39,7 +39,7 @@ npm install react-native-in-app-notification --save
 | onShowing                 | Method called before showing notification           | Function               | No          | `null`                      |
 | onShown                   | Method called after notification shown              | Function               | No          | `null`                      |
 | onClosing                 | Method called before closing notification           | Function               | No          | `null`                      |
-| onClosed                  | Method called after notification closed             | Function               | No          | `null`                      |
+| onClosed(willShowAgain)   | Method called after notification closed, willShowAgain parameter defines if the notification will be shown again immediately                                                                 | Function               | No          | `null`                      |
 
 ### NotificationBody
 The notification body is what is rendered inside the main Notification component and gives you the ability to customise how the notification looks. You can use the default notification body component in `./DefaultNotificationBody.js` as inspiration and guidance.
