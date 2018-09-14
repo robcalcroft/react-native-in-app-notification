@@ -173,7 +173,7 @@ Notification.defaultProps = {
   onShowing: () => {},
   onShown: () => {},
   onClosing: () => {},
-  onClosed: (willShowAgain) => {}
+  onClosed: () => {}
 };
 
 export default Notification;
