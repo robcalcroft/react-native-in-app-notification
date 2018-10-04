@@ -15,6 +15,7 @@
     "react-native": "^0.43.4"
   },
   "dependencies": {
+    "react-native-iphone-x-helper": "^1.2.0",
     "react-native-swipe-gestures": "^1.0.2"
   },
   "devDependencies": {

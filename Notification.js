@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, StyleSheet, Image } from 'react-native';
+import { getStatusBarHeight, isIphoneX } from 'react-native-iphone-x-helper';
+
 import DefaultNotificationBody from './DefaultNotificationBody';
 
 const styles = StyleSheet.create({
@@ -142,7 +144,7 @@ Notification.propTypes = {
 Notification.defaultProps = {
   closeInterval: 4000,
   openCloseDuration: 200,
-  height: 80,
+  height: 80 + (isIphoneX() && getStatusBarHeight()),
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
   iconApp: null,
