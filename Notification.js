@@ -81,7 +81,7 @@ class Notification extends Component {
   render() {
     const {
       height,
-      topOffset = 0,
+      topOffset,
       backgroundColour,
       iconApp,
       notificationBodyComponent: NotificationBody,
@@ -131,6 +131,7 @@ Notification.propTypes = {
   closeInterval: PropTypes.number,
   openCloseDuration: PropTypes.number,
   height: PropTypes.number,
+  topOffset: PropTypes.number,
   backgroundColour: PropTypes.string,
   notificationBodyComponent: PropTypes.oneOfType([
     PropTypes.node,
@@ -143,6 +144,7 @@ Notification.defaultProps = {
   closeInterval: 4000,
   openCloseDuration: 200,
   height: 80,
+  topOffset: 0,
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
   iconApp: null,
