@@ -16,6 +16,8 @@ class Notification extends Component {
   constructor() {
     super();
 
+    this.heightOffset = isIphoneX() ? getStatusBarHeight() : 0;
+
     this.show = this.show.bind(this);
     this.showNotification = this.showNotification.bind(this);
     this.closeNotification = this.closeNotification.bind(this);
@@ -82,7 +84,7 @@ class Notification extends Component {
 
   render() {
     const {
-      height,
+      height: baseHeight,
       topOffset = 0,
       backgroundColour,
       iconApp,
@@ -98,6 +100,8 @@ class Notification extends Component {
       icon,
       vibrate,
     } = this.state;
+
+    const height = baseHeight + this.heightOffset;
 
     return (
       <Animated.View
@@ -144,7 +148,7 @@ Notification.propTypes = {
 Notification.defaultProps = {
   closeInterval: 4000,
   openCloseDuration: 200,
-  height: 80 + (isIphoneX() && getStatusBarHeight()),
+  height: 80,
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
   iconApp: null,
