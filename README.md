@@ -84,19 +84,19 @@ Your `notificationBodyComponent` component is given four props:
 ## Usage
 
 Adding `react-native-in-app-notification` is simple;
-Just wrap you main `App` component with the `Provider` component exported from this module.
+Just wrap you main `App` component with the `InAppNotificationProvider` component exported from this module.
 
 ```javascript
-import { Provider } from 'react-native-in-app-notification';
+import { InAppNotificationProvider } from 'react-native-in-app-notification';
 
 import App from './App.js';
 
 class AppWithNotifications extends Component {
   render() {
     return (
-      <Provider>
+      <InAppNotificationProvider>
         <App />
-      </Provider>
+      </InAppNotificationProvider>
     );
   }
 }
