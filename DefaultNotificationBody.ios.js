@@ -61,6 +61,7 @@ class DefaultNotificationBody extends React.Component {
   constructor() {
     super();
 
+    this.onNotificationPress = this.onNotificationPress.bind(this);
     this.onSwipe = this.onSwipe.bind(this);
   }
 
@@ -72,6 +73,16 @@ class DefaultNotificationBody extends React.Component {
     if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
       Vibration.vibrate();
     }
+  }
+
+  onNotificationPress() {
+    const {
+      onPress,
+      onClose,
+    } = this.props;
+
+    onClose();
+    onPress();
   }
 
   onSwipe(direction) {
@@ -101,8 +112,6 @@ class DefaultNotificationBody extends React.Component {
     const {
       title,
       message,
-      onPress,
-      onClose,
     } = this.props;
 
     return (
@@ -112,10 +121,7 @@ class DefaultNotificationBody extends React.Component {
             style={styles.content}
             activeOpacity={0.3}
             underlayColor="transparent"
-            onPress={() => {
-              onClose();
-              onPress();
-            }}
+            onPress={this.onNotificationPress}
           >
             {this.renderIcon()}
             <View style={styles.textContainer}>
