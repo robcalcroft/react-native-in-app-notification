@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, StyleSheet, Image } from 'react-native';
+import { getStatusBarHeight, isIphoneX } from 'react-native-iphone-x-helper';
+
 import DefaultNotificationBody from './DefaultNotificationBody';
 
 const styles = StyleSheet.create({
@@ -13,6 +15,8 @@ const styles = StyleSheet.create({
 class Notification extends Component {
   constructor() {
     super();
+
+    this.heightOffset = isIphoneX() ? getStatusBarHeight() : 0;
 
     this.show = this.show.bind(this);
     this.showNotification = this.showNotification.bind(this);
@@ -80,8 +84,8 @@ class Notification extends Component {
 
   render() {
     const {
-      height,
-      topOffset = 0,
+      height: baseHeight,
+      topOffset,
       backgroundColour,
       iconApp,
       notificationBodyComponent: NotificationBody,
@@ -96,6 +100,8 @@ class Notification extends Component {
       icon,
       vibrate,
     } = this.state;
+
+    const height = baseHeight + this.heightOffset;
 
     return (
       <Animated.View
@@ -131,6 +137,7 @@ Notification.propTypes = {
   closeInterval: PropTypes.number,
   openCloseDuration: PropTypes.number,
   height: PropTypes.number,
+  topOffset: PropTypes.number,
   backgroundColour: PropTypes.string,
   notificationBodyComponent: PropTypes.oneOfType([
     PropTypes.node,
@@ -143,6 +150,7 @@ Notification.defaultProps = {
   closeInterval: 4000,
   openCloseDuration: 200,
   height: 80,
+  topOffset: 0,
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
   iconApp: null,
