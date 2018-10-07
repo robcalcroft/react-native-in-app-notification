@@ -102,7 +102,7 @@ class AppWithNotifications extends Component {
 }
 ```
 
-When you want to show the notification, just wrap the component which needs to display a notification with the `withInAppNotification` HOC and call the `.showNotification` methods from his props.
+When you want to show the notification, just wrap the component which needs to display a notification with the `withInAppNotification` HOC and call the `.showNotification` methods from its props.
 
 `.showNotification` can take three arguments (all of which are optional):
 
