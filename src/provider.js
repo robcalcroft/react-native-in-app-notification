@@ -1,8 +1,8 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 
-import Context from './context';
-import Notification from './notification';
+import Context from './Context';
+import Notification from './Notification';
 
 class Provider extends React.PureComponent {
   constructor(props) {

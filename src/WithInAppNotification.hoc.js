@@ -2,7 +2,7 @@ import React from 'react';
 
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
-import Context from './context';
+import Context from './Context';
 
 function withInAppNotification(WrappedComponent) {
   class Enhanced extends React.PureComponent {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Animated, StyleSheet, Image } from 'react-native';
 import { getStatusBarHeight, isIphoneX } from 'react-native-iphone-x-helper';
 
-import DefaultNotificationBody from './default-notification-body';
+import DefaultNotificationBody from './DefaultNotificationBody';
 
 const styles = StyleSheet.create({
   notification: {

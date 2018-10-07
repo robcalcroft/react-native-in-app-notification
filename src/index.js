@@ -1,4 +1,4 @@
-export { default as Notification } from './notification';
+export { default as Notification } from './Notification';
 
-export { default as Provider } from './provider';
-export { default as withInAppNotification } from './with-in-app-notification.hoc';
+export { default as Provider } from './Provider';
+export { default as withInAppNotification } from './WithInAppNotification.hoc';
