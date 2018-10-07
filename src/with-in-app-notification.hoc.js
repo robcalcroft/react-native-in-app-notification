@@ -2,7 +2,7 @@ import React from 'react';
 
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
-import Context from '~/react-native-in-app-notification/src/context';
+import Context from './context';
 
 function withInAppNotification(WrappedComponent) {
   class Enhanced extends React.PureComponent {
