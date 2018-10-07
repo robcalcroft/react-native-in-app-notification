@@ -65,12 +65,12 @@ class DefaultNotificationBody extends React.Component {
     this.onSwipe = this.onSwipe.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isOpen !== this.props.isOpen) {
-      StatusBar.setHidden(nextProps.isOpen);
+  componentDidUpdate(prevProps) {
+    if (this.props.isOpen !== prevProps.isOpen) {
+      StatusBar.setHidden(this.props.isOpen);
     }
 
-    if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
+    if ((prevProps.vibrate || this.props.vibrate) && this.props.isOpen && !prevProps.isOpen) {
       Vibration.vibrate();
     }
   }
