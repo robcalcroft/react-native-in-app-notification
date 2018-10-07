@@ -25,6 +25,7 @@ class Provider extends React.PureComponent {
           ref={(ref) => {
             this.notification = ref;
           }}
+          {...this.props}
         />
       </Context.Provider>
     );
@@ -32,6 +33,7 @@ class Provider extends React.PureComponent {
 }
 
 Provider.propTypes = {
+  ...Notification.propTypes,
   children: PropTypes.element.isRequired,
 };
 
