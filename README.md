@@ -32,6 +32,23 @@ OR
 npm install react-native-in-app-notification --save
 ```
 
+### Android
+
+For Android you need to add the `VIBRATE` permission to your app `AndroidManifest.xml`
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="your.app.package.name">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <!-- Required by react-native-in-app-notification -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    ...
+</manifest>
+```
+
 ## Versions
 
 | version | RN        |
