@@ -25,16 +25,18 @@ class Notification extends Component {
     this.state = {
       animatedValue: new Animated.Value(0),
       isOpen: false,
+      data: {},
     };
   }
 
   show(
-    { title, message, onPress, icon, vibrate } = {
+    { title, message, onPress, icon, vibrate, data } = {
       title: '',
       message: '',
       onPress: null,
       icon: null,
       vibrate: true,
+      data: {},
     },
   ) {
     const { closeInterval } = this.props;
@@ -53,6 +55,7 @@ class Notification extends Component {
           onPress,
           icon,
           vibrate,
+          data,
         },
         () =>
           this.showNotification(() => {
@@ -65,6 +68,7 @@ class Notification extends Component {
                   onPress: null,
                   icon: null,
                   vibrate: true,
+                  data: {},
                 },
                 this.closeNotification,
               );
@@ -82,18 +86,18 @@ class Notification extends Component {
     }
   }
 
-  showNotification(done = () => {}) {
+  showNotification(done) {
     Animated.timing(this.state.animatedValue, {
       toValue: 1,
       duration: this.props.openCloseDuration,
     }).start(done);
   }
 
-  closeNotification(done = () => {}) {
+  closeNotification(done) {
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
-    }).start(done);
+    }).start(done instanceof Function ? done : () => {});
   }
 
   render() {
@@ -113,6 +117,7 @@ class Notification extends Component {
       isOpen,
       icon,
       vibrate,
+      data,
     } = this.state;
 
     const height = baseHeight + this.heightOffset;
@@ -145,6 +150,8 @@ class Notification extends Component {
           onClose={() =>
             this.setState({ isOpen: false }, this.closeNotification)
           }
+          closeNotification={this.closeNotification}
+          data={data}
         />
       </Animated.View>
     );

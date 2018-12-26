@@ -35,6 +35,7 @@ npm install react-native-in-app-notification --save
 ### Android
 
 For Android you need to add the `VIBRATE` permission to your app `AndroidManifest.xml`
+
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="your.app.package.name">
@@ -71,15 +72,17 @@ For Android you need to add the `VIBRATE` permission to your app `AndroidManifes
 
 The notification body is what is rendered inside the main Notification component and gives you the ability to customise how the notification looks. You can use the default notification body component in `./DefaultNotificationBody.js` as inspiration and guidance.
 
-Your `notificationBodyComponent` component is given four props:
+Your `notificationBodyComponent` component is given these props:
 
-| Prop Name | Prop Description                                              | Data Type           | Default |
-| --------- | ------------------------------------------------------------- | ------------------- | ------- |
-| title     | The title passed to `NotificationRef.show`                    | String              | `''`    |
-| message   | The message passed to `NotificationRef.show`                  | String              | `''`    |
-| onPress   | The callback passed to `NotificationRef.show`                 | Function            | `null`  |
-| icon      | Icon for notification passed to `NotificationRef.show`        | ImageSourcePropType | `null`  |
-| vibrate   | Vibrate on show notification passed to `NotificationRef.show` | Boolean             | `true`  |
+| Prop Name         | Prop Description                                                                      | Data Type           | Default    |
+| ----------------- | ------------------------------------------------------------------------------------- | ------------------- | ---------- |
+| title             | The title passed to `NotificationRef.show`                                            | String              | `''`       |
+| message           | The message passed to `NotificationRef.show`                                          | String              | `''`       |
+| onPress           | The callback passed to `NotificationRef.show`                                         | Function            | `null`     |
+| icon              | Icon for notification passed to `NotificationRef.show`                                | ImageSourcePropType | `null`     |
+| vibrate           | Vibrate on show notification passed to `NotificationRef.show`                         | Boolean             | `true`     |
+| closeNotification | When called will hide the notification with animation                                 | Function            | `() => {}` |
+| data              | Additional data you want to pass to `NotificationBody` through `NotificationRef.show` | Object              | `{}`       |
 
 ## Usage
 
@@ -131,7 +134,8 @@ class MyApp extends Component {
             this.props.showNotification({
               title: 'You pressed it!',
               message: 'The notification has been triggered',
-              onPress: () => Alert.alert('Alert', 'You clicked the notification!')
+              onPress: () =>
+                Alert.alert('Alert', 'You clicked the notification!'),
             });
           }}
         >
