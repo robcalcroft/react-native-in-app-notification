@@ -9,10 +9,11 @@ function withInAppNotification(WrappedComponent) {
     render() {
       return (
         <Context.Consumer>
-          {showNotification => (
+          {({ showNotification, closeNotification }) => (
             <WrappedComponent
               {...this.props}
               showNotification={showNotification}
+              closeNotification={closeNotification}
             />
           )}
         </Context.Consumer>

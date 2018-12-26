@@ -7,7 +7,6 @@ import Notification from './Notification';
 class Provider extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.showNotification = this.showNotification.bind(this);
   }
 
@@ -17,12 +16,23 @@ class Provider extends React.PureComponent {
     }
   }
 
+  closeNotification() {
+    if (this.notification) {
+      this.notification.closeNotification();
+    }
+  }
+
   render() {
     return (
-      <Context.Provider value={this.showNotification}>
+      <Context.Provider
+        value={{
+          showNotification: this.showNotification,
+          closeNotification: this.closeNotification,
+        }}
+      >
         {Children.only(this.props.children)}
         <Notification
-          ref={(ref) => {
+          ref={ref => {
             this.notification = ref;
           }}
           {...this.props}
