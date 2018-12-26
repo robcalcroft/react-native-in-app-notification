@@ -54,21 +54,22 @@ class Notification extends Component {
           icon,
           vibrate,
         },
-        () => this.showNotification(() => {
-          this.currentNotificationInterval = setTimeout(() => {
-            this.setState(
-              {
-                isOpen: false,
-                title: '',
-                message: '',
-                onPress: null,
-                icon: null,
-                vibrate: true,
-              },
-              this.closeNotification,
-            );
-          }, closeInterval);
-        }),
+        () =>
+          this.showNotification(() => {
+            this.currentNotificationInterval = setTimeout(() => {
+              this.setState(
+                {
+                  isOpen: false,
+                  title: '',
+                  message: '',
+                  onPress: null,
+                  icon: null,
+                  vibrate: true,
+                },
+                this.closeNotification,
+              );
+            }, closeInterval);
+          }),
       );
     };
 
@@ -81,14 +82,14 @@ class Notification extends Component {
     }
   }
 
-  showNotification(done) {
+  showNotification(done = () => {}) {
     Animated.timing(this.state.animatedValue, {
       toValue: 1,
       duration: this.props.openCloseDuration,
     }).start(done);
   }
 
-  closeNotification(done) {
+  closeNotification(done = () => {}) {
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
@@ -104,7 +105,15 @@ class Notification extends Component {
       notificationBodyComponent: NotificationBody,
     } = this.props;
 
-    const { animatedValue, title, message, onPress, isOpen, icon, vibrate } = this.state;
+    const {
+      animatedValue,
+      title,
+      message,
+      onPress,
+      isOpen,
+      icon,
+      vibrate,
+    } = this.state;
 
     const height = baseHeight + this.heightOffset;
 
@@ -133,7 +142,9 @@ class Notification extends Component {
           iconApp={iconApp}
           icon={icon}
           vibrate={vibrate}
-          onClose={() => this.setState({ isOpen: false }, this.closeNotification)}
+          onClose={() =>
+            this.setState({ isOpen: false }, this.closeNotification)
+          }
         />
       </Animated.View>
     );
@@ -146,7 +157,10 @@ Notification.propTypes = {
   height: PropTypes.number,
   topOffset: PropTypes.number,
   backgroundColour: PropTypes.string,
-  notificationBodyComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  notificationBodyComponent: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.func,
+  ]),
   iconApp: Image.propTypes.source,
 };
 
