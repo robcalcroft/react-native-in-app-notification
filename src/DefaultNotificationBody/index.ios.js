@@ -149,8 +149,8 @@ DefaultNotificationBody.propTypes = {
 };
 
 DefaultNotificationBody.defaultProps = {
-  title: 'Notification',
-  message: 'This is a test notification',
+  title: null,
+  message: null,
   vibrate: true,
   isOpen: false,
   iconApp: null,
