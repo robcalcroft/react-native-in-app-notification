@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "repository": {
     "type" : "git",
-    "url" : "https://github.com/CocoJr/react-native-in-app-notification",
+    "url" : "https://github.com/CocoJr/react-native-in-app-notification"
   },
   "author": {
     "name": "Thibault Colette",
