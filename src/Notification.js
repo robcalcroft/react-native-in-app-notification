@@ -108,7 +108,7 @@ class Notification extends Component {
 
     const height = baseHeight + this.heightOffset;
 
-    return (
+    return isOpen && (
       <Animated.View
         style={[
           styles.notification,
