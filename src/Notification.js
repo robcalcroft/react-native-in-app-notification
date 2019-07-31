@@ -35,7 +35,7 @@ class Notification extends Component {
       onPress: null,
       icon: null,
       vibrate: true,
-    },
+    }, additionalProps,
   ) {
     const { closeInterval } = this.props;
     const { isOpen } = this.state;
@@ -53,6 +53,7 @@ class Notification extends Component {
           onPress,
           icon,
           vibrate,
+          additionalProps,
         },
         () => this.showNotification(() => {
           this.currentNotificationInterval = setTimeout(() => {
@@ -64,6 +65,7 @@ class Notification extends Component {
                 onPress: null,
                 icon: null,
                 vibrate: true,
+                additionalProps,
               },
               this.closeNotification,
             );
@@ -126,6 +128,7 @@ class Notification extends Component {
         ]}
       >
         <NotificationBody
+          {...this.state.additionalProps}
           title={title}
           message={message}
           onPress={onPress}
