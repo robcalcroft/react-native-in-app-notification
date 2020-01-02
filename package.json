@@ -4,7 +4,7 @@
   "description": "Customisable in-app notification component for React Native",
   "main": "src/index.js",
   "repository": "https://github.com/robcalcroft/react-native-in-app-notification.git",
-  "author": "Rob Calcroft <rob@calcroft.com>",
+  "author": "Rob Calcroft <robcalcroft@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
     "lint": "eslint Notification.js DefaultNotificationBody.ios.js DefaultNotificationBody.android.js"
