@@ -104,15 +104,18 @@ class AppWithNotifications extends Component {
 
 When you want to show the notification, just wrap the component which needs to display a notification with the `withInAppNotification` HOC and call the `.showNotification` methods from its props.
 
-`.showNotification` can take three arguments (all of which are optional):
+`.showNotification` can take four arguments (all of which are optional):
 
 - `title`
 - `message`
 - `onPress`
+- `additionalProps`
 
 **N.B:** you should probably include at least one of `title` or `message`!
 
 `onPress` doesn't need to be used for passive notifications and you can use `onClose` in your `NotificationBody` component to allow your users to close the notification.
+
+`additionalProps` can be used to pass arbitory props to `NotificationBody` component. Can be accessed in `NotificationBody` component via `props.additionalProps`.
 
 ```javascript
 import React, { Component } from 'react';
@@ -130,6 +133,7 @@ class MyApp extends Component {
               title: 'You pressed it!',
               message: 'The notification has been triggered',
               onPress: () => Alert.alert('Alert', 'You clicked the notification!')
+              additionalProps={{ type: 'error' }}
             });
           }}
         >
