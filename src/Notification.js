@@ -29,13 +29,13 @@ class Notification extends Component {
   }
 
   show(
-    { title, message, onPress, icon, vibrate, passProps } = {
+    { title, message, onPress, icon, vibrate, additionalProps } = {
       title: '',
       message: '',
       onPress: null,
       icon: null,
       vibrate: true,
-      passProps: {},
+      additionalProps: {},
     },
   ) {
     const { closeInterval } = this.props;
@@ -54,7 +54,7 @@ class Notification extends Component {
           onPress,
           icon,
           vibrate,
-          passProps,
+          additionalProps,
         },
         () => this.showNotification(() => {
           this.currentNotificationInterval = setTimeout(() => {
@@ -66,7 +66,7 @@ class Notification extends Component {
                 onPress: null,
                 icon: null,
                 vibrate: true,
-                passProps,
+                additionalProps,
               },
               this.closeNotification,
             );
@@ -137,7 +137,7 @@ class Notification extends Component {
           icon={icon}
           vibrate={vibrate}
           onClose={() => this.setState({ isOpen: false }, this.closeNotification)}
-          {...this.state.passProps}
+          additionalProps={this.state.additionalProps}
         />
       </Animated.View>
     );
