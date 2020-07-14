@@ -88,6 +88,7 @@ class Notification extends Component {
     Animated.timing(this.state.animatedValue, {
       toValue: 1,
       duration: this.props.openCloseDuration,
+      useNativeDriver: true,
     }).start(done);
   }
 
@@ -95,6 +96,7 @@ class Notification extends Component {
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
+      useNativeDriver: true,
     }).start(done);
   }
 
