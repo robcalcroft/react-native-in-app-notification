@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, StatusBar, View, Text, Image, Vibration } from 'react-native';
+import { getStatusBarHeight, isIphoneX } from 'react-native-iphone-x-helper';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 const styles = {
@@ -10,7 +11,7 @@ const styles = {
   },
   container: {
     position: 'absolute',
-    top: 0,
+    top: isIphoneX() && getStatusBarHeight(),
     bottom: 0,
     left: 0,
     right: 0,
@@ -60,17 +61,28 @@ class DefaultNotificationBody extends React.Component {
   constructor() {
     super();
 
+    this.onNotificationPress = this.onNotificationPress.bind(this);
     this.onSwipe = this.onSwipe.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isOpen !== this.props.isOpen) {
-      StatusBar.setHidden(nextProps.isOpen);
+  componentDidUpdate(prevProps) {
+    if (this.props.isOpen !== prevProps.isOpen) {
+      StatusBar.setHidden(this.props.isOpen);
     }
 
-    if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
+    if ((prevProps.vibrate || this.props.vibrate) && this.props.isOpen && !prevProps.isOpen) {
       Vibration.vibrate();
     }
+  }
+
+  onNotificationPress() {
+    const {
+      onPress,
+      onClose,
+    } = this.props;
+
+    onClose();
+    onPress();
   }
 
   onSwipe(direction) {
@@ -100,8 +112,6 @@ class DefaultNotificationBody extends React.Component {
     const {
       title,
       message,
-      onPress,
-      onClose,
     } = this.props;
 
     return (
@@ -111,10 +121,7 @@ class DefaultNotificationBody extends React.Component {
             style={styles.content}
             activeOpacity={0.3}
             underlayColor="transparent"
-            onPress={() => {
-              onClose();
-              onPress();
-            }}
+            onPress={this.onNotificationPress}
           >
             {this.renderIcon()}
             <View style={styles.textContainer}>

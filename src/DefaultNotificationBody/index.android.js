@@ -40,13 +40,24 @@ class DefaultNotificationBody extends React.Component {
   constructor() {
     super();
 
+    this.onNotificationPress = this.onNotificationPress.bind(this);
     this.onSwipe = this.onSwipe.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ((this.props.vibrate || nextProps.vibrate) && nextProps.isOpen && !this.props.isOpen) {
+  componentDidUpdate(prevProps) {
+    if ((prevProps.vibrate || this.props.vibrate) && this.props.isOpen && !prevProps.isOpen) {
       Vibration.vibrate();
     }
+  }
+
+  onNotificationPress() {
+    const {
+      onPress,
+      onClose,
+    } = this.props;
+
+    onClose();
+    onPress();
   }
 
   onSwipe(direction) {
@@ -64,8 +75,6 @@ class DefaultNotificationBody extends React.Component {
       message,
       iconApp,
       icon,
-      onPress,
-      onClose,
     } = this.props;
 
     return (
@@ -74,10 +83,7 @@ class DefaultNotificationBody extends React.Component {
           style={styles.content}
           activeOpacity={0.3}
           underlayColor="transparent"
-          onPress={() => {
-            onClose();
-            onPress();
-          }}
+          onPress={this.onNotificationPress}
         >
           <View style={styles.iconContainer}>
             {(icon || iconApp) && <Image source={icon || iconApp} style={styles.icon} />}
@@ -101,6 +107,7 @@ DefaultNotificationBody.propTypes = {
   onClose: PropTypes.func,
   iconApp: Image.propTypes.source,
   icon: Image.propTypes.source,
+  additionalProps: PropTypes.object,
 };
 
 DefaultNotificationBody.defaultProps = {
@@ -112,6 +119,7 @@ DefaultNotificationBody.defaultProps = {
   icon: null,
   onPress: () => null,
   onClose: () => null,
+  additionalProps: null,
 };
 
 export default DefaultNotificationBody;
