@@ -89,14 +89,14 @@ class Notification extends Component {
       onShowing,
       onShown
     } = this.props;
-    onShowing();
+    onShowing(this.state.additionalProps);
     Animated.timing(this.state.animatedValue, {
       toValue: 1,
       duration: this.props.openCloseDuration,
       useNativeDriver: true,
     }).start(() => {
       done();
-      onShown();
+      onShown(this.state.additionalProps);
     });
   }
 
@@ -105,14 +105,14 @@ class Notification extends Component {
       onClosing,
       onClosed
     } = this.props;
-    onClosing();
+    onClosing(this.state.additionalProps);
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
       useNativeDriver: true,
     }).start(() => {
       done && done();
-      onClosed(done != null);
+      onClosed(this.state.additionalProps);
     });
   }
 
@@ -188,10 +188,10 @@ Notification.defaultProps = {
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
   iconApp: null,
-  onShowing: () => {},
-  onShown: () => {},
-  onClosing: () => {},
-  onClosed: () => {}
+  onShowing: (additionalProps) => {},
+  onShown: (additionalProps) => {},
+  onClosing: (additionalProps) => {},
+  onClosed: (additionalProps) => {},
 };
 
 export default Notification;
