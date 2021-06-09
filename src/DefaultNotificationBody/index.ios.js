@@ -70,7 +70,7 @@ class DefaultNotificationBody extends React.Component {
       StatusBar.setHidden(this.props.isOpen);
     }
 
-    if ((prevProps.vibrate || this.props.vibrate) && this.props.isOpen && !prevProps.isOpen) {
+    if (this.props.vibrate && this.props.isOpen && !prevProps.isOpen){
       Vibration.vibrate();
     }
   }
