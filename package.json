@@ -1,6 +1,6 @@
 {
   "name": "react-native-in-app-notification",
-  "version": "3.0.1",
+  "version": "3.2.0",
   "description": "Customisable in-app notification component for React Native",
   "main": "src/index.js",
   "repository": "https://github.com/robcalcroft/react-native-in-app-notification.git",
