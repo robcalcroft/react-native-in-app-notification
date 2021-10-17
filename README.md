@@ -58,14 +58,18 @@ For Android you need to add the `VIBRATE` permission to your app `AndroidManifes
 
 ## Props
 
-| Prop Name                 | Prop Description                                    | Data Type              | Required    | Default                     |
-| ------------------------- | --------------------------------------------------- | ---------------------- | ----------- | --------------------------- |
-| closeInterval             | How long the notification stays visible             | Number                 | No          | `4000`                      |
-| openCloseDuration         | The length of the open / close animation            | Number                 | No          | `200`                       |
-| height                    | The height of the Notification component            | Number                 | No          | `80`                        |
-| backgroundColour          | The background colour of the Notification component | String                 | No          | `white`                     |
-| iconApp                   | App Icon                                            | ImageSourcePropType    | No          | `null`                      |
-| notificationBodyComponent | **See below about NotificationBody**                | React Node or Function | Recommended | `./DefaultNotificationBody` |
+| Prop Name                  | Prop Description                                    | Data Type              | Required    | Default                     |
+| -------------------------- | --------------------------------------------------- | ---------------------- | ----------- | --------------------------- |
+| closeInterval              | How long the notification stays visible             | Number                 | No          | `4000`                      |
+| openCloseDuration          | The length of the open / close animation            | Number                 | No          | `200`                       |
+| height                     | The height of the Notification component            | Number                 | No          | `80`                        |
+| backgroundColour           | The background colour of the Notification component | String                 | No          | `white`                     |
+| iconApp                    | App Icon                                            | ImageSourcePropType    | No          | `null`                      |
+| notificationBodyComponent  | **See below about NotificationBody**                | React Node or Function | Recommended | `./DefaultNotificationBody` |
+| onShowing(additionalProps) | Method called before showing notification           | Function               | No          | `null`                      |
+| onShown(additionalProps)   | Method called after notification shown              | Function               | No          | `null`                      |
+| onClosing(additionalProps) | Method called before closing notification           | Function               | No          | `null`                      |
+| onClosed(additionalProps)  | Method called after notification closed             | Function               | No          | `null`                      |
 
 ### NotificationBody
 
@@ -73,14 +77,14 @@ The notification body is what is rendered inside the main Notification component
 
 Your `notificationBodyComponent` component is given five props:
 
-| Prop Name         | Prop Description                                              | Data Type           | Default |
-| ----------------- | ------------------------------------------------------------- | ------------------- | ------- |
-| title             | The title passed to `NotificationRef.show`                    | String              | `''`    |
-| message           | The message passed to `NotificationRef.show`                  | String              | `''`    |
-| onPress           | The callback passed to `NotificationRef.show`                 | Function            | `null`  |
-| icon              | Icon for notification passed to `NotificationRef.show`        | ImageSourcePropType | `null`  |
-| vibrate           | Vibrate on show notification passed to `NotificationRef.show` | Boolean             | `true`  |
-| additionalProps   | Any additional props passed to `NotificationBodyComponent`    | Object              | `null`  |
+| Prop Name         | Prop Description                                                                                                  | Data Type           | Default |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------- | ------- |
+| title             | The title passed to `NotificationRef.show`                                                                        | String              | `''`    |
+| message           | The message passed to `NotificationRef.show`                                                                      | String              | `''`    |
+| onPress           | The callback passed to `NotificationRef.show`                                                                     | Function            | `null`  |
+| icon              | Icon for notification passed to `NotificationRef.show`                                                            | ImageSourcePropType | `null`  |
+| vibrate           | Vibrate on show notification passed to `NotificationRef.show`                                                     | Boolean             | `true`  |
+| additionalProps   | Any additional props passed to `NotificationBodyComponent`, `onShowing`, `onShown`, `onClosing` and `onClosed`    | Object              | `null`  |
 
 ## Usage
 

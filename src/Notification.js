@@ -85,19 +85,35 @@ class Notification extends Component {
   }
 
   showNotification(done) {
+    const {
+      onShowing,
+      onShown
+    } = this.props;
+    onShowing(this.state.additionalProps);
     Animated.timing(this.state.animatedValue, {
       toValue: 1,
       duration: this.props.openCloseDuration,
       useNativeDriver: true,
-    }).start(done);
+    }).start(() => {
+      done();
+      onShown(this.state.additionalProps);
+    });
   }
 
   closeNotification(done) {
+    const {
+      onClosing,
+      onClosed
+    } = this.props;
+    onClosing(this.state.additionalProps);
     Animated.timing(this.state.animatedValue, {
       toValue: 0,
       duration: this.props.openCloseDuration,
       useNativeDriver: true,
-    }).start(done);
+    }).start(() => {
+      done && done();
+      onClosed(this.state.additionalProps);
+    });
   }
 
   render() {
@@ -138,7 +154,11 @@ class Notification extends Component {
           iconApp={iconApp}
           icon={icon}
           vibrate={vibrate}
-          onClose={() => this.setState({ isOpen: false }, this.closeNotification)}
+          onClose={() => {
+            //clear timeout
+            clearTimeout(this.currentNotificationInterval);
+            this.setState({ isOpen: false }, this.closeNotification);
+          }}
           additionalProps={this.state.additionalProps}
         />
       </Animated.View>
@@ -154,6 +174,10 @@ Notification.propTypes = {
   backgroundColour: PropTypes.string,
   notificationBodyComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   iconApp: Image.propTypes.source,
+  onShowing: PropTypes.func,
+  onShown: PropTypes.func,
+  onClosing: PropTypes.func,
+  onClosed: PropTypes.func
 };
 
 Notification.defaultProps = {
@@ -164,6 +188,10 @@ Notification.defaultProps = {
   backgroundColour: 'white',
   notificationBodyComponent: DefaultNotificationBody,
   iconApp: null,
+  onShowing: (additionalProps) => {},
+  onShown: (additionalProps) => {},
+  onClosing: (additionalProps) => {},
+  onClosed: (additionalProps) => {},
 };
 
 export default Notification;
