@@ -144,8 +144,8 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
-  iconApp: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
-  icon: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+  iconApp: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 DefaultNotificationBody.defaultProps = {
