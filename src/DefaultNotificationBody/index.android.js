@@ -105,9 +105,8 @@ DefaultNotificationBody.propTypes = {
   isOpen: PropTypes.bool,
   onPress: PropTypes.func,
   onClose: PropTypes.func,
-  iconApp: Image.propTypes.source,
-  icon: Image.propTypes.source,
-  additionalProps: PropTypes.object,
+  iconApp: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 DefaultNotificationBody.defaultProps = {
@@ -119,7 +118,6 @@ DefaultNotificationBody.defaultProps = {
   icon: null,
   onPress: () => null,
   onClose: () => null,
-  additionalProps: null,
 };
 
 export default DefaultNotificationBody;

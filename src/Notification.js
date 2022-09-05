@@ -153,7 +153,7 @@ Notification.propTypes = {
   topOffset: PropTypes.number,
   backgroundColour: PropTypes.string,
   notificationBodyComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  iconApp: Image.propTypes.source,
+  iconApp: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 Notification.defaultProps = {

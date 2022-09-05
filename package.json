@@ -12,7 +12,7 @@
   "peerDependencies": {
     "prop-types": "^15.5.10",
     "react": ">=16.3.0",
-    "react-native": ">=0.54.0"
+    "react-native": ">=0.69.4"
   },
   "dependencies": {
     "hoist-non-react-statics": "^3.0.1",
